@@ -26,7 +26,5 @@ public class NiramayaApplication implements CommandLineRunner {
         doctorRepository.save(d3);
         doctorRepository.save(d4);
         doctorRepository.save(d5);
-
-
     }
 }
