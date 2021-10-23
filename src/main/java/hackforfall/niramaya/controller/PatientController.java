@@ -37,7 +37,7 @@ public class PatientController {
         }
         else {
             pRepo.save(p);
-            return new ResponseEntity<>("Successful sign up", HttpStatus.OK);
+            return new ResponseEntity<>(p, HttpStatus.OK);
         }
     }
 
