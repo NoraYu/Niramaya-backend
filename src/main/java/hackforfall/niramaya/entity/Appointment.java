@@ -1,33 +1,37 @@
 package hackforfall.niramaya.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.sql.Time;
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 
 @Entity
-public class Appointment {
+public class Appointment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "patient", cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
 
-    @OneToOne(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     private Doctor doctor;
-    private LocalDateTime time;
+    private Timestamp time;
 
-    public LocalDateTime getTime() {
-        return time;
+    public Appointment() {
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public Timestamp getTime() {
+        return this.time;
+    }
+
+    public void setTime(Timestamp time) {
+//        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+//        this.time = LocalDateTime.parse(time,myFormat);
+        this.time=time;
     }
 
     public void setId(String id) {
@@ -47,11 +51,11 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public Doctor getDoctorId() {
+    public Doctor getDoctor() {
         return doctor;
     }
 
-    public void setDoctorId(Doctor doctor) {
+    public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
 }

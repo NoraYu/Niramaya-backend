@@ -1,9 +1,13 @@
 package hackforfall.niramaya.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 @Entity
-public class Patient {
+public class Patient implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -11,8 +15,14 @@ public class Patient {
     private String lastName;
     private String email;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Appointment appointment;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
+    private List<Appointment> appointment;
+
+    public List<Appointment> getAppointment() {
+        return appointment;
+    }
 
     public Patient() {
     }
@@ -64,11 +74,4 @@ public class Patient {
         this.password = password;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
 }

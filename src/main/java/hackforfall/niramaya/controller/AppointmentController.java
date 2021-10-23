@@ -9,11 +9,9 @@ import hackforfall.niramaya.repro.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 public class AppointmentController {
     @Autowired
@@ -23,13 +21,16 @@ public class AppointmentController {
     @Autowired
     DoctorRepository dRepo;
 
-    @PostMapping(value = {"{pid}/{did}/make-appointment/"})
+    @PostMapping(value = {"/make-appointment/{pid}/{did}"})
     public ResponseEntity<?> makeAppointment(@PathVariable Long pid, @PathVariable Long did, @RequestBody Appointment a){
+            Appointment app = new Appointment();
             Patient p = pRepo.findById(pid).get();
             Doctor d = dRepo.findById(did).get();
-            a.setPatient(p);
-            a.setDoctorId(d);
-            aRepo.save(a);
+            app.setPatient(p);
+            app.setDoctor(d);
+            app.setTime(a.getTime());
+        System.out.println(app.getDoctor().getId());
+            aRepo.save(app);
             return new ResponseEntity<>(HttpStatus.OK);
     }
 }
