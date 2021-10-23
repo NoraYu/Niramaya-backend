@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Doctor implements Serializable {
+public class Patient implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,19 +17,29 @@ public class Doctor implements Serializable {
     private String password;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     private List<Appointment> appointment;
-    public Doctor() {
 
-    }
     public List<Appointment> getAppointment() {
         return appointment;
     }
-    public Doctor(String firstName, String lastName, String email, String password) {
+
+    public Patient() {
+    }
+
+    public Patient(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -48,14 +58,6 @@ public class Doctor implements Serializable {
         this.lastName = lastName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -71,4 +73,5 @@ public class Doctor implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
