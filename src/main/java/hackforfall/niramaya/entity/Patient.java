@@ -3,27 +3,33 @@ package hackforfall.niramaya.entity;
 import javax.persistence.*;
 
 @Entity
-public class Doctor{
+public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
-    private String specificity;
-    private String zoomURL;
     private String email;
     private String password;
     @OneToOne(cascade = CascadeType.ALL)
     private Appointment appointment;
-    public Doctor() {
 
+    public Patient() {
     }
 
-    public Doctor(String firstName, String lastName, String specificity, String zoomURL) {
+    public Patient(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.specificity = specificity;
-        this.zoomURL = zoomURL;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -42,40 +48,6 @@ public class Doctor{
         this.lastName = lastName;
     }
 
-
-    public String getSpecificity() {
-        return specificity;
-    }
-
-    public void setSpecificity(String specificity) {
-        this.specificity = specificity;
-    }
-
-    public String getZoomURL() {
-        return zoomURL;
-    }
-
-    public void setZoomURL(String zoomURL) {
-        this.zoomURL = zoomURL;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -90,5 +62,13 @@ public class Doctor{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 }
