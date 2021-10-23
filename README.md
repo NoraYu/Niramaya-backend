@@ -1,5 +1,5 @@
 # Niramaya-backend
- #1. DocotorController:
+ # 1. DocotorController:
 1.1 get all doctors 
 get mapping: /alldocs
 return: a list of all doctors and HttpStatus.OK
